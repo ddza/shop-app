@@ -1,0 +1,29 @@
+.main-wrapper{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+    .card{
+        flex: auto;
+        height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        margin:  0 10px;
+        
+    }
+    .men {
+        background-image: url(../../img/men.jpg);
+    }
+    .women {
+        background-image: url(../../img/women-bg.webp);
+    }
+    a {
+      font-size: 2rem;
+      font-weight: 800; 
+      color: #fff; 
+    }
+}
