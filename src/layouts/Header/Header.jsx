@@ -1,9 +1,42 @@
+import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
+import axios from "axios";
 
 import Button from '../../components/Button/Button';
 import { ReactComponent as MainLogo } from '../../img/main-logo.svg'
+import { UserContext } from "../../contexts/user.context";
+import constants from "../../config/constants";
+import "../../axios/axios";
+
+
 
 const Header = () => {
+const { currentUser, setCurrentUser } = useContext(UserContext);
+
+const onSignOut =  (e) => {
+    
+try {  
+    axios.interceptors.request.use(function(config){
+        const token = currentUser.token;
+        config.headers.Authorization = token ? `Bearer ${token}` : '';
+
+        return config;
+    });
+    const csrf =  axios.get(constants.CSRF_URL);
+            axios.post(constants.LOGOUT_USER).then(res => {
+            setCurrentUser(null);
+            }).catch(err => console.log(err));
+          
+    } catch (error) {
+        const err = error 
+        if (err.response) {
+           console.log(err.response.status);
+           console.log(err.response.data);
+           console.log(err.response.data.errors);
+        }
+    }
+}
+
     return (
         <div className="relative bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
@@ -25,12 +58,25 @@ const Header = () => {
                         </Link>
                 </nav>
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 text-gray-500  font-medium">
-                        <Link to="/sign-in" className="hover:text-gray-900">
-                            Sign in
-                        </Link>
-                        <Link to="/sign-up" className="ml-8 items-center justify-center px-4 py-2 rounded-md font-medium text-white bg-indigo-600 hover:bg-indigo-700">
-                            Sign Up
-                        </Link>
+                      { currentUser ?   
+                            <Button
+                                type="button"
+                                className="group relative w-full flex justify-center py-2 px-6 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-23 max-w-md"
+                                onClick={onSignOut}
+                            > Sign Out 
+                            </Button> 
+                         :
+                            ( <div>
+                                <Link to="/sign-in" className="hover:text-gray-900">
+                                    Sign in
+                                </Link>
+                                <Link to="/sign-up" className="ml-8 items-center justify-center px-4 py-2 rounded-md font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+                                    Sign Up
+                                </Link>
+                            </div>
+                            )
+                        }
+                        
                     </div>
                 </div>
             </div>

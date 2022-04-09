@@ -1,10 +1,13 @@
 
 import CollectionContainer from "../../components/CollectionContainer/CollectionContainer";
+import FetchDataHOC from "../../components/FetchDataHOC/FetchDataHOC";
 
-
-const WomenCollection = () => {
+const WomenCollection = ({ data }) => {
     return (
-        <CollectionContainer/>
+        <CollectionContainer collection = {data} collectionTitle="Women"/>
     );
 }
-export default WomenCollection;
+export default FetchDataHOC(
+    WomenCollection, 
+    "http://127.0.0.1:8000/api/women-collection"
+    );

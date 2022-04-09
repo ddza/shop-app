@@ -1,6 +1,13 @@
-const MenCollection = () => {
+
+import CollectionContainer from "../../components/CollectionContainer/CollectionContainer";
+import FetchDataHOC from "../../components/FetchDataHOC/FetchDataHOC";
+
+const MenCollection = ({ data }) => {
     return (
-        <h1 className="text-3xl font-bold underline">men page</h1>
+        <CollectionContainer collection = {data} collectionTitle="Men"/>
     );
 }
-export default MenCollection;
+export default FetchDataHOC(
+    MenCollection,
+    "http://127.0.0.1:8000/api/men-collection"
+    );
