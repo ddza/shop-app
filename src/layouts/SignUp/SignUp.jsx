@@ -1,6 +1,5 @@
 import { useState , useContext, useEffect} from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 
 import FormContainer from "../../components/FormContainer/FormContainer";
 import FormInput from "../../components/FormInput/FormInput";
@@ -9,7 +8,8 @@ import TextRow from "../../components/TextRow/TextRow";
 import { UserContext } from "../../contexts/user.context";
 import constants from "../../config/constants";
 import validations from "../../formValidation/validations";
-import   "../../axios/axios";
+
+import { axiosInstance } from "../../axios/axios";
 
 
 
@@ -33,8 +33,8 @@ const SignUp = () => {
 
   async function createUser() {
     try {
-      const csrf =  await axios.get(constants.CSRF_URL);
-      const singUp = await axios.post(constants.REGISTER_USER, values);
+      const csrf =  await axiosInstance.get(constants.CSRF_URL);
+      const singUp = await axiosInstance.post(constants.REGISTER_USER, values);
    
       setCurrentUser(singUp.data)
       redirect('/');

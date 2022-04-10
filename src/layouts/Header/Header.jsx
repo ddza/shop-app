@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
-import axios from "axios";
+
 
 import Button from '../../components/Button/Button';
 import { ReactComponent as MainLogo } from '../../img/main-logo.svg'
 import { UserContext } from "../../contexts/user.context";
 import constants from "../../config/constants";
-import "../../axios/axios";
+import { axiosInstance } from "../../axios/axios";
 
 
 
@@ -16,17 +16,17 @@ const Header = () => {
     const onSignOut =  (e) => {
         
         try {  
-            const interceptors =   axios.interceptors.request.use(function(config){
+            const interceptors =   axiosInstance.interceptors.request.use(function(config){
                 const token =  currentUser?.token;
                 config.headers.Authorization = token ? `Bearer ${token}` : '';
 
                 return config;
             });
             
-            const csrf =  axios.get(constants.CSRF_URL);
-                    axios.post(constants.LOGOUT_USER).then(res => {
+            const csrf =  axiosInstance.get(constants.CSRF_URL);
+            axiosInstance.post(constants.LOGOUT_USER).then(res => {
                         setCurrentUser(null);
-                        axios.interceptors.request.eject(interceptors);
+                        axiosInstance.interceptors.request.eject(interceptors);
                     }).catch(err => console.log(err));
                 
             } catch (error) {

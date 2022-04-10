@@ -1,6 +1,5 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate} from "react-router-dom";
-import axios from "axios";
 
 import FormInput from "../../components/FormInput/FormInput";
 import Button from "../../components/Button/Button";
@@ -9,7 +8,7 @@ import TextRow from "../../components/TextRow/TextRow";
 import { UserContext } from "../../contexts/user.context";
 import constants from "../../config/constants";
 import validations from "../../formValidation/validations";
-import  "../../axios/axios";
+import { axiosInstance } from "../../axios/axios";
 
 
 const SingIn = () => {
@@ -30,8 +29,8 @@ const SingIn = () => {
 
   async function getUser() {
       try {
-        const csrf =  await axios.get(constants.CSRF_URL);
-        const login = await axios.post(constants.LOGIN_USER, values);
+        const csrf =  await axiosInstance.get(constants.CSRF_URL);
+        const login = await axiosInstance.post(constants.LOGIN_USER, values);
         setCurrentUser(login.data);
         redirect('/');
         
