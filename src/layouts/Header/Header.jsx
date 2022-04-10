@@ -4,7 +4,7 @@ import { Outlet, Link } from "react-router-dom";
 
 import Button from '../../components/Button/Button';
 import { ReactComponent as MainLogo } from '../../img/main-logo.svg'
-import { UserContext } from "../../contexts/user.context";
+import { UserContext } from "../../contexts/userContext";
 import constants from "../../config/constants";
 import { axiosInstance } from "../../axios/axios";
 

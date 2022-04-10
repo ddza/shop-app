@@ -5,7 +5,7 @@ import FormContainer from "../../components/FormContainer/FormContainer";
 import FormInput from "../../components/FormInput/FormInput";
 import Button from "../../components/Button/Button";
 import TextRow from "../../components/TextRow/TextRow";
-import { UserContext } from "../../contexts/user.context";
+import { UserContext } from "../../contexts/userContext";
 import constants from "../../config/constants";
 import validations from "../../formValidation/validations";
 
