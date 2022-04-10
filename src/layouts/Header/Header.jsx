@@ -11,31 +11,33 @@ import "../../axios/axios";
 
 
 const Header = () => {
-const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { currentUser, setCurrentUser } = useContext(UserContext);
+  
+    const onSignOut =  (e) => {
+        
+        try {  
+            const interceptors =   axios.interceptors.request.use(function(config){
+                const token =  currentUser?.token;
+                config.headers.Authorization = token ? `Bearer ${token}` : '';
 
-const onSignOut =  (e) => {
-    
-try {  
-    axios.interceptors.request.use(function(config){
-        const token = currentUser.token;
-        config.headers.Authorization = token ? `Bearer ${token}` : '';
-
-        return config;
-    });
-    const csrf =  axios.get(constants.CSRF_URL);
-            axios.post(constants.LOGOUT_USER).then(res => {
-            setCurrentUser(null);
-            }).catch(err => console.log(err));
-          
-    } catch (error) {
-        const err = error 
-        if (err.response) {
-           console.log(err.response.status);
-           console.log(err.response.data);
-           console.log(err.response.data.errors);
-        }
+                return config;
+            });
+            
+            const csrf =  axios.get(constants.CSRF_URL);
+                    axios.post(constants.LOGOUT_USER).then(res => {
+                        setCurrentUser(null);
+                        axios.interceptors.request.eject(interceptors);
+                    }).catch(err => console.log(err));
+                
+            } catch (error) {
+                const err = error 
+                if (err.response) {
+                    console.log(err.response.status);
+                    console.log(err.response.data);
+                    console.log(err.response.data.errors);
+                }
+            }
     }
-}
 
     return (
         <div className="relative bg-white">

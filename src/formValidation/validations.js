@@ -1,13 +1,13 @@
 const validations = (values) => {
     
     let errors = {isValid: false, serverError:null};
-    console.log(values)
+  
     if(Object.keys(values).length > 2) {
         if(!values.name) {
             errors.name = "Name is required.";
         }
         if(!values.password_confirmation) {
-            errors.passwordConfirmation = "Passord Confimartion is required.";
+            errors.passwordConfirmation = "Password Confimartion is required.";
         }else if(values.password !== values.password_confirmation) {
             errors.passwordConfirmation = "Please, make sure your passords match";
         }
@@ -26,7 +26,6 @@ const validations = (values) => {
    if(Object.keys(errors).length ===2){
        errors.isValid = true;
    }
-   console.log(errors)
    return errors;
 }
 export default validations;
