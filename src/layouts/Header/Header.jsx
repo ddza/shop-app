@@ -3,8 +3,11 @@ import { Outlet, Link } from "react-router-dom";
 
 
 import Button from '../../components/Button/Button';
+import CartIcon from "../../components/CartIcon/CartIcon";
+import CartDropdown from "../../components/CartDropdown/CartDropdown";
 import { ReactComponent as MainLogo } from '../../img/main-logo.svg'
 import { UserContext } from "../../contexts/userContext";
+import { CartContext } from "../../contexts/CartContext";
 import constants from "../../config/constants";
 import { axiosInstance } from "../../axios/axios";
 
@@ -12,6 +15,7 @@ import { axiosInstance } from "../../axios/axios";
 
 const Header = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
+    const { isCartHidden} = useContext(CartContext);
   
     const onSignOut =  (e) => {
         
@@ -23,7 +27,7 @@ const Header = () => {
                 return config;
             });
             
-            const csrf =  axiosInstance.get(constants.CSRF_URL);
+            axiosInstance.get(constants.CSRF_URL);
             axiosInstance.post(constants.LOGOUT_USER).then(res => {
                         setCurrentUser(null);
                         axiosInstance.interceptors.request.eject(interceptors);
@@ -58,8 +62,10 @@ const Header = () => {
                         <Link to="/shop">
                             Shop
                         </Link>
+                      
                 </nav>
                     <div className="hidden md:flex items-center justify-end md:flex-1 lg:w-0 text-gray-500  font-medium">
+                       
                       { currentUser ?   
                             <Button
                                 type="button"
@@ -78,9 +84,14 @@ const Header = () => {
                             </div>
                             )
                         }
-                        
+                         <CartIcon/>
                     </div>
                 </div>
+                {
+                    // !isCartHidden ?  <CartDropdown/> : null
+                    !isCartHidden && <CartDropdown/> 
+                }
+                
             </div>
             <Outlet/>
         </div>
