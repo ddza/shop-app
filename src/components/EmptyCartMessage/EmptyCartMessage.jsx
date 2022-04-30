@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import { ReactComponent as CartIcon} from '../../img/cart.svg';
 
 const EmptyCartMessage = () => {

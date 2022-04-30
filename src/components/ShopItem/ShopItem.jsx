@@ -2,6 +2,11 @@ import { useContext } from "react";
 
 import { CartContext } from "../../contexts/CartContext";
 import Button from "../../components/Button/Button";
+import { 
+    Quantity, 
+    Arrow, 
+    Value
+} from "./ShopItem.style";
 
 const ShopItem = (product) => {
     const {img_url, name, href, price, quantity} = product;
@@ -33,17 +38,17 @@ const ShopItem = (product) => {
                 </div>
                 <div className="flex flex-1 items-end justify-between text-sm">
                     <p className="text-gray-500">Qty</p>
-                    <span className="quantity">
-                        <div 
-                            className="arrow"
+                    <Quantity>
+                        <Arrow
                             onClick={handleDecreaseQuantity} 
-                            >&#10094;</div>
-                            <span className="value">{quantity}</span>
-                        <div 
-                            className="arrow" 
+                            >&#10094;
+                        </Arrow>
+                            <Value>{quantity}</Value>
+                        <Arrow
                             onClick={handleIncreaseQuantity}
-                            >&#10095;</div>
-                    </span>
+                            >&#10095;
+                        </Arrow>
+                    </Quantity>
                     <div className="flex">
                         <Button
                             type="button"

@@ -1,22 +1,26 @@
 
-import { Link } from "react-router-dom";
 import { useContext } from "react";
 
 import { CartContext } from "../../contexts/CartContext";
 import CartItem from "../CartItem/CartItem";
 
-import './CartDropdown.style.scss';
-
+import './CartDropdown.style.js';
+import { 
+  DropdownContainer, 
+  CartItems, 
+  LinkToShop, 
+  EmptyMessage
+ } from "./CartDropdown.style.js";
 
 
 const CartDropdown = () => {
   const { cartItems } = useContext(CartContext);
   
   return (
-    <div className="cart-dropdown-container shadow-xl">
+    <DropdownContainer className="shadow-xl">
       {cartItems.length 
       ? (
-          <div className="cart-items">
+          <CartItems>
             <div className="flex-1 ">
                 <ul className=" divide-y divide-gray-200">
                     {cartItems.map((product) => (
@@ -24,13 +28,13 @@ const CartDropdown = () => {
                     ))}
                 </ul>
             </div>
-            <Link to="/shop" className="ml-8 items-center justify-center px-4 py-2 rounded-md font-medium text-white bg-indigo-600 hover:bg-indigo-700">
+            <LinkToShop to="/shop" className="ml-8 items-center justify-center px-4 py-2 rounded-md font-medium text-white bg-indigo-600 hover:bg-indigo-700">
                 Shop
-            </Link>
-        </div>
+            </LinkToShop>
+        </CartItems>
       ) : (<p className="text-base text-center">Your shopping cart is empty</p>)}
     
-    </div>
+    </DropdownContainer>
   );
 }
 

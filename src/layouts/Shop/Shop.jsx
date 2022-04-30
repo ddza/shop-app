@@ -4,7 +4,7 @@ import { CartContext } from "../../contexts/CartContext";
 import Button from "../../components/Button/Button";
 import ShopItem from "../../components/ShopItem/ShopItem";
 import EmptyCartMessage from "../../components/EmptyCartMessage/EmptyCartMessage";
-import './Shop.style.scss';
+
 
 
 const Shop = () => {

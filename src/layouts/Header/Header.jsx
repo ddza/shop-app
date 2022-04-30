@@ -4,10 +4,8 @@ import { Outlet, Link } from "react-router-dom";
 
 import Button from '../../components/Button/Button';
 import CartIcon from "../../components/CartIcon/CartIcon";
-import CartDropdown from "../../components/CartDropdown/CartDropdown";
 import { ReactComponent as MainLogo } from '../../img/main-logo.svg'
 import { UserContext } from "../../contexts/userContext";
-import { CartContext } from "../../contexts/CartContext";
 import constants from "../../config/constants";
 import { axiosInstance } from "../../axios/axios";
 
@@ -15,7 +13,6 @@ import { axiosInstance } from "../../axios/axios";
 
 const Header = () => {
     const { currentUser, setCurrentUser } = useContext(UserContext);
-    const { isCartHidden} = useContext(CartContext);
   
     const onSignOut =  (e) => {
         
@@ -86,12 +83,7 @@ const Header = () => {
                         }
                          <CartIcon/>
                     </div>
-                </div>
-                {
-                    // !isCartHidden ?  <CartDropdown/> : null
-                    !isCartHidden && <CartDropdown/> 
-                }
-                
+                </div>  
             </div>
             <Outlet/>
         </div>
