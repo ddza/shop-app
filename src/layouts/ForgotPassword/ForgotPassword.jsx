@@ -26,17 +26,17 @@ const ForgotPassword = () => {
   async function resetPasswordMail() {
     // try {
 
-    //   const csrf = await axiosInstance.get(constants.CSRF_URL);
-    //   axiosInstance.interceptors.response.use(res => {
-    //     console.log(`res status ---> ${res.status}`)
-    //    // resolve(res)
-    //     return res;
-    // }, (error)=>{
-    //     console.log(`This is the error status ---> ${error.response.status}`)
-    //     // if(error.response.status === 401){
-    //     //    resolve(error.response);
-    //     // }
-    // })
+    //   //const csrf = await axiosInstance.get(constants.CSRF_URL);
+    // //   axiosInstance.interceptors.response.use(res => {
+    // //     console.log(`res status ---> ${res.status}`)
+    // //    // resolve(res)
+    // //     return res;
+    // // }, (error)=>{
+    // //     console.log(`This is the error status ---> ${error.response.status}`)
+    // //     // if(error.response.status === 401){
+    // //     //    resolve(error.response);
+    // //     // }
+    // // })
     //   const forgotPasswordMessage = await axiosInstance.post("/api/forgot-password", email);
     //   console.log(forgotPasswordMessage)
     //   setServerStatus(forgotPasswordMessage.data.status);
@@ -60,13 +60,15 @@ const ForgotPassword = () => {
             throw new Error(`HTTP error: ${response.status}`);
         }
         const data = await response.json();
-        setServerStatus(data.status);
+        setServerStatus(data.email);
+        console.log(data)
    
     } catch (error) {
         const err = error
         if (err.response) {
           setErrors({ ...errors, serverError: err.response.data });
         }
+        console.log(err.response.data)
     }
 
   }
@@ -81,6 +83,7 @@ const ForgotPassword = () => {
     e.preventDefault();
     setErrors(validations(email));
   }
+  console.log(serverStatus)
 
   return (
     <FormContainer formTitle="Forgot your password?">

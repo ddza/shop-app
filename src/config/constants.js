@@ -4,7 +4,8 @@
     LOGIN_USER : '/api/login',
     LOGOUT_USER :'/api/logout',
     FORGOT_PASSWORD: '/api/forgot-password',
-    RESET_PASSWORD: '/api/reset-password'
+    RESET_PASSWORD: '/api/reset-password',
+    APPLY_COUPON: '/api/apply-coupon',
 };
 
 export default constants;

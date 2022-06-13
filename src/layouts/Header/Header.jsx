@@ -57,7 +57,7 @@ const Header = () => {
                             Men
                         </Link>
                         <Link to="/shop">
-                            Shop
+                            Cart
                         </Link>
                       
                 </nav>
