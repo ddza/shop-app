@@ -1,18 +1,24 @@
-import { useContext } from "react";
+//import { useContext } from "react";
 import { Outlet, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 
 import Button from '../../components/Button/Button';
 import CartIcon from "../../components/CartIcon/CartIcon";
 import { ReactComponent as MainLogo } from '../../img/main-logo.svg'
-import { UserContext } from "../../contexts/userContext";
+//import { UserContext } from "../../contexts/userContext";
+import { selectCurrentUser } from "../../store/user/user.selector";
+import { setCurrentUser } from "../../store/user/user.action";
 import constants from "../../config/constants";
 import { axiosInstance } from "../../axios/axios";
 
 
 
 const Header = () => {
-    const { currentUser, setCurrentUser } = useContext(UserContext);
+    //const { currentUser, setCurrentUser } = useContext(UserContext);
+    const currentUser = useSelector(selectCurrentUser);
+    const dispatch = useDispatch();
   
     const onSignOut =  (e) => {
         
@@ -26,7 +32,7 @@ const Header = () => {
             
             axiosInstance.get(constants.CSRF_URL);
             axiosInstance.post(constants.LOGOUT_USER).then(res => {
-                        setCurrentUser(null);
+                       dispatch(setCurrentUser(null));
                         axiosInstance.interceptors.request.eject(interceptors);
                     }).catch(err => console.log(err));
                 

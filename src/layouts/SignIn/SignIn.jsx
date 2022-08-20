@@ -1,14 +1,16 @@
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import FormInput from "../../components/FormInput/FormInput";
 import Button from "../../components/Button/Button";
 import FormContainer from "../../components/FormContainer/FormContainer";
 import TextRow from "../../components/TextRow/TextRow";
-import { UserContext } from "../../contexts/userContext";
+//import { UserContext } from "../../contexts/userContext";
 import constants from "../../config/constants";
 import validations from "../../formValidation/validations";
 import { axiosInstance } from "../../axios/axios";
+import { setCurrentUser } from "../../store/user/user.action";
 
 
 const SingIn = () => {
@@ -17,7 +19,8 @@ const SingIn = () => {
     password: ""
   });
   const [errors, setErrors] = useState({});
-  const { setCurrentUser } = useContext(UserContext);
+  //const { setCurrentUser } = useContext(UserContext);
+  const dispatch = useDispatch();
   const redirect = useNavigate();
 
   const handleChange = (e) => {
@@ -31,7 +34,8 @@ const SingIn = () => {
       try {
         const csrf =  await axiosInstance.get(constants.CSRF_URL);
         const login = await axiosInstance.post(constants.LOGIN_USER, values);
-        setCurrentUser(login.data);
+        console.log(login)
+        dispatch(setCurrentUser(login.data));
         redirect('/');
         
       } catch (error) {
