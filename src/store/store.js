@@ -5,8 +5,8 @@ import storage from 'redux-persist/lib/storage';
 
 import { rootReducer } from './root-reducer';
 
-
-const middleWares = [logger];
+//[].filter(Boolean) -> will remove anything that's got false, if it is true we will get the logger
+const middleWares = [process.env.NODE_ENV === 'development' && logger].filter(Boolean);
 
 const persistConfig = {
     key: "root", 
@@ -14,8 +14,14 @@ const persistConfig = {
     
 }
 
+const composedEnhancer = (
+    process.env.NODE_ENV !== "production" &&
+    window &&
+    window.__REDUX_DEVTOOLS_EXTENTION_COMPOSE__) ||
+    compose;
+
 const persistedReducer = persistReducer(persistConfig, rootReducer)
-const composedEnhancers = compose(applyMiddleware(...middleWares))
+const composedEnhancers = composedEnhancer(applyMiddleware(...middleWares))
 
 export const store = legacy_createStore(
     persistedReducer, 
