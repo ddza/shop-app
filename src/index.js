@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 //import { UserProvider } from './contexts/userContext';
-import { CartProvider } from './contexts/CartContext';
+//import { CartProvider } from './contexts/CartContext';
 import { store } from './store/store';
 
 import './index.css';
@@ -16,9 +16,9 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         {/* <UserProvider> */}
-          <CartProvider>
+          {/* <CartProvider> */}
             <App />
-          </CartProvider>
+          {/* </CartProvider> */}
         {/* </UserProvider> */}
       </BrowserRouter>
     </Provider>

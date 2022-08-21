@@ -1,7 +1,9 @@
 
-import { useContext } from "react";
+//import { useContext } from "react";
+import { useSelector } from "react-redux";
 
-import { CartContext } from "../../contexts/CartContext";
+//import { CartContext } from "../../contexts/CartContext";
+import { selectCartItems } from "../../store/cart/cart.selector";
 import CartItem from "../CartItem/CartItem";
 
 import './CartDropdown.style.js';
@@ -14,7 +16,8 @@ import {
 
 
 const CartDropdown = () => {
-  const { cartItems } = useContext(CartContext);
+  //const { cartItems } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
   
   return (
     <DropdownContainer className="shadow-xl">

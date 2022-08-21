@@ -1,6 +1,10 @@
-import { useContext } from "react";
+//import { useContext } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
-import { CartContext } from "../../contexts/CartContext";
+//import { CartContext } from "../../contexts/CartContext";
+import { selectCartItems } from "../../store/cart/cart.selector";
+import { addItemToCart, removeItemFromCart, clearItemFromCart } from "../../store/cart/cart.action";
 import Button from "../../components/Button/Button";
 import { 
     Quantity, 
@@ -10,11 +14,13 @@ import {
 
 const ShopItem = (product) => {
     const {img_url, name, href, price, quantity} = product;
-    const { addItemToCart, removeItemFromCart, clearItemFromCart } =  useContext(CartContext);
+    //const { addItemToCart, removeItemFromCart, clearItemFromCart } =  useContext(CartContext);
+    const cartItems = useSelector(selectCartItems);
+    const dispatch = useDispatch();
 
-    const handleIncreaseQuantity = () => addItemToCart(product);
-    const handleDecreaseQuantity = () => removeItemFromCart(product);
-    const handleClearItemFromCart = () => clearItemFromCart(product);
+    const handleIncreaseQuantity = () => dispatch(addItemToCart(cartItems, product));
+    const handleDecreaseQuantity = () => dispatch(removeItemFromCart(cartItems, product));
+    const handleClearItemFromCart = () => dispatch(clearItemFromCart(cartItems, product));
 
     return ( 
         <li  className="flex py-6">

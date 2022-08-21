@@ -1,6 +1,8 @@
 import { useContext, useState} from "react";
+import { useSelector } from "react-redux";
 
-import { CartContext } from "../../contexts/CartContext";
+//import { CartContext } from "../../contexts/CartContext";
+import { selectCartItems, selectPrice } from "../../store/cart/cart.selector";
 import Button from "../../components/Button/Button";
 import ShopItem from "../../components/ShopItem/ShopItem";
 import EmptyCartMessage from "../../components/EmptyCartMessage/EmptyCartMessage";
@@ -12,7 +14,9 @@ import { axiosInstance } from "../../axios/axios";
 
 
 const Shop = () => {
-  const { cartItems, totalPrice } = useContext(CartContext);
+  //const { cartItems, totalPrice } = useContext(CartContext);
+  const cartItems = useSelector(selectCartItems);
+  const totalPrice = useSelector(selectPrice);
   const [values, setValues] = useState({
     couponCode: "", 
     total: totalPrice 
@@ -56,7 +60,7 @@ const Shop = () => {
       }
     }
   }
-console.log(coupon)
+
     return (
         <div className=" flex max-w-full  py-12 px-4 sm:px-6 lg:px-8">
         <div className="pointer-events-auto w-screen mx-auto  max-w-2xl ">
